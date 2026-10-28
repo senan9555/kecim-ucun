@@ -3,70 +3,212 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff0f5">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sənin üçün, Keçim ♡</title>
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 25px 16px;
+      font-family: Georgia, serif;
+      text-align: center;
+      color: #9d6681;
+      background: linear-gradient(135deg, #fff0f5, #fce0eb);
+    }
+
+    .card {
+      max-width: 430px;
+      margin: 35px auto;
+      padding: 30px 20px;
+      background: #ffffffd9;
+      border: 1px solid #f3d5e2;
+      border-radius: 25px;
+      box-shadow: 0 8px 28px #dba8bf45;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    button, .whatsapp {
+      display: inline-block;
+      margin: 12px 5px;
+      padding: 13px 22px;
+      border: none;
+      border-radius: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    button {
+      background: #e9a9c5;
+      color: white;
+    }
+
+    .whatsapp {
+      background: #25D366;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    #gift {
+      display: none;
+    }
+
+    .bouquet {
+      font-size: 75px;
+      margin: 25px 0;
+      animation: sway 3s ease-in-out infinite;
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    .ending {
+      margin-top: 25px;
+      font-size: 16px;
+    }
+
+    .visit-counter {
+      margin: 25px auto 10px;
+      font-size: 12px;
+      color: #b77998;
+    }
+
+    #heartsLayer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .heart {
+      position: absolute;
+      top: -30px;
+      color: #e6a1c0;
+      animation: fall 5s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <main class="card">
+    <section id="intro">
+      <h1>Sənin üçün, Keçim ♡</h1>
+      <p>Mənim üçün hər zaman dəyərlisən. ♡</p>
+      <button id="openButton" type="button">
+        Sürprizi aç ♡
+      </button>
+    </section>
 
-  <main class="container" id="intro">
-    <div class="little-hearts">♡ ✿ ♡</div>
+    <section id="gift">
+      <h1>Sənin üçün ♡</h1>
 
-    <p class="subtitle">SƏNƏ BALACA BİR SÜRPRİZİM VAR</p>
+      <div class="bouquet">💐</div>
 
-    <h1>Sənin üçün,<br>
-      <span>Keçim ♡</span>
-    </h1>
+      <p>Mənim üçün hər zaman dəyərlisən. ♡</p>
 
-    <p class="description">
-      Sənin üçün kiçik bir şey hazırlamışam.
-      Açmaq istəyərsən? ♡
-    </p>
+      <p class="ending">
+        Üzündən təbəssüm əskik olmasın. ♡
+      </p>
 
-    <button id="openButton">Sürprizi aç ♡</button>
+      <button id="backButton" type="button">
+        Geri qayıt
+      </button>
+    </section>
 
-    <p class="small-text">Sadəcə sənin üçün...</p>
+    <div class="visit-counter">
+      Ziyarət sayı: <span id="visitCount">♡</span>
+    </div>
+
+    <a
+      class="whatsapp"
+      href="https://wa.me/994103109510"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WhatsApp ilə yaz
+    </a>
   </main>
 
-  <main class="gift hidden" id="gift">
-    <div class="hearts">♡　✧　♡</div>
+  <div id="heartsLayer" aria-hidden="true"></div>
 
-    <div class="bouquet" aria-label="Çəhrayı gül buketi">
-      <div class="flower f1">✿</div>
-      <div class="flower f2">✿</div>
-      <div class="flower f3">✿</div>
-      <div class="flower f4">✿</div>
-      <div class="flower f5">✿</div>
+  <script>
+    const intro = document.getElementById("intro");
+    const gift = document.getElementById("gift");
+    const openButton = document.getElementById("openButton");
+    const backButton = document.getElementById("backButton");
+    const heartsLayer = document.getElementById("heartsLayer");
 
-      <div class="leaf l1"></div>
-      <div class="leaf l2"></div>
-      <div class="leaf l3"></div>
+    openButton.addEventListener("click", function () {
+      intro.style.display = "none";
+      gift.style.display = "block";
+      makeHearts();
+    });
 
-      <div class="stems"></div>
-      <div class="paper"></div>
-      <div class="bow">♡</div>
-    </div>
+    backButton.addEventListener("click", function () {
+      gift.style.display = "none";
+      intro.style.display = "block";
+    });
 
-    <p class="subtitle">ÜRƏKDƏN, SƏNƏ</p>
+    function makeHearts() {
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement("span");
+        heart.className = "heart";
+        heart.textContent = "♡";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 3 + "s";
+        heart.style.fontSize = (14 + Math.random() * 18) + "px";
+        heartsLayer.appendChild(heart);
 
-    <h2>Sənin üçün, Keçim ♡</h2>
+        setTimeout(function () {
+          heart.remove();
+        }, 8000);
+      }
+    }
 
-    <div class="letter">
-      <p>Mənim üçün hər zaman dəyərlisən. ♡</p>
-    </div>
+    // Ziyarət sayını artır
+    fetch(
+      "https://countapi.mileshilliard.com/api/v1/hit/kecim_ucun_visits_2026_8x4m7q2p"
+    ).catch(function () {});
 
-    <p class="ending">Üzündən təbəssüm əskik olmasın. ♡</p>
-
-    <button id="backButton" class="secondary">
-      Bir də bax ♡
-    </button>
-
-    
-<script>
-fetch("https://countapi.mileshilliard.com/api/v1/hit/kecim_ucun_visits_2026_8x4m7q2p")
-  .catch(error => console.log("Sayğac xətası:", error));
-</script>
- 
+    // Cari ziyarət sayını göstər
+    fetch(
+      "https://countapi.mileshilliard.com/api/v1/get/kecim_ucun_visits_2026_8x4m7q2p",
+      { cache: "no-store" }
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        document.getElementById("visitCount").textContent =
+          data.value ?? "♡";
+      })
+      .catch(function () {
+        document.getElementById("visitCount").textContent = "♡";
+      });
+  </script>
 </body>
 </html>
