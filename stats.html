@@ -5,33 +5,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gizli statistika ♡</title>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff0f5;
-      color: #b56d8d;
-      text-align: center;
-      padding: 50px 15px;
+    * {
+      box-sizing: border-box;
     }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #fce1ec);
+      color: #b56d8d;
+    }
+
     .box {
-      background: white;
-      border-radius: 20px;
-      padding: 30px 20px;
-      max-width: 350px;
-      margin: auto;
-      box-shadow: 0 5px 20px #e8c7d5;
+      width: 100%;
+      max-width: 360px;
+      padding: 35px 20px;
+      text-align: center;
+      background: #ffffff;
+      border: 1px solid #f4d5e2;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px #e9c7d8;
+    }
+
+    h1 {
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .heart {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .counterapi {
+      margin-top: 20px;
+      min-height: 44px;
+      font-size: 22px;
+    }
+
+    .note {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #ad8b9b;
     }
   </style>
 </head>
-<body>
-  <div class="box">
-    <h2>Gizli statistika ♡</h2>
-    <p>Sayta ümumi ziyarətlər</p>
 
-    <img
-      src="https://counterapi.com/counter.svg?ns=kecim-ucun&action=view&key=site-visits&readOnly=true&label=ziyaret"
-      alt="Ziyarət sayı"
-    >
-  </div>
+<body>
+  <main class="box">
+    <div class="heart">♡</div>
+
+    <h1>Gizli statistika</h1>
+
+    <p>Saytımıza ümumi ziyarət sayı</p>
+
+    <div
+      class="counterapi"
+      style="min-height:44px"
+    ></div>
+
+    <p class="note">
+      Bu səhifə yalnız statistika üçündür ♡
+    </p>
+  </main>
+
+  <script
+    src="https://counterapi.com/c.js?ns=kecim-ucun"
+    async
+  ></script>
 </body>
 </html>
