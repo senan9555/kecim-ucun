@@ -1,193 +1,91 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="az">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giriş sayı</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<meta charset="UTF-8">
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: black;
+    }
 
-<meta
-    name="viewport"
-    content="width=device-width,
-             initial-scale=1,
-             maximum-scale=1,
-             user-scalable=no"
->
+    .box {
+      text-align: center;
+    }
 
-<title>Visits</title>
+    .label {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
 
-<style>
+    #count {
+      font-size: 64px;
+      font-weight: bold;
+    }
 
-* {
-    box-sizing: border-box;
-}
+    #status {
+      margin-top: 15px;
+      color: #777;
+      font-size: 13px;
+    }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <main class="box">
+    <div class="label">Giriş sayı</div>
+    <div id="count">...</div>
+    <div id="status"></div>
+    <button onclick="loadCount()">Yenilə</button>
+  </main>
 
-    width: 100%;
-    min-height: 100%;
-}
+  <script>
+    async function loadCount() {
+      const count = document.getElementById("count");
+      const status = document.getElementById("status");
 
-body {
+      count.textContent = "...";
+      status.textContent = "";
 
-    min-height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 24px;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    background:
-        linear-gradient(
-            135deg,
-            #d9d0bd,
-            #eee8da 48%,
-            #d4c8b2
+      try {
+        const response = await fetch(
+          "https://countapi.mileshilliard.com/api/v1/get/kecim_ucun_visits_2026_8x4m7q2p",
+          { cache: "no-store" }
         );
 
-    color: #332e28;
-}
+        if (!response.ok) {
+          throw new Error("Sayğac cavab vermədi");
+        }
 
-.box {
-
-    width: min(90vw, 380px);
-
-    padding: 45px 28px;
-
-    text-align: center;
-
-    background: #faf6ed;
-
-    border:
-        1px solid
-        rgba(82,65,44,.13);
-
-    box-shadow:
-        0 20px 45px
-        rgba(57,44,27,.16);
-}
-
-.label {
-
-    margin: 0 0 18px;
-
-    font-size: 16px;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    opacity: .65;
-}
-
-.count {
-
-    margin: 0;
-
-    font-size: 68px;
-
-    line-height: 1;
-
-    font-weight: 400;
-}
-
-button {
-
-    margin-top: 30px;
-
-    padding: 9px 20px;
-
-    border:
-        1px solid
-        rgba(82,65,44,.20);
-
-    background: transparent;
-
-    color: #332e28;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    cursor: pointer;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="box">
-
-    <p class="label">
-        Visits
-    </p>
-
-    <p
-        class="count"
-        id="count"
-    >
-        …
-    </p>
-
-    <button onclick="loadCount()">
-        Refresh
-    </button>
-
-</div>
-
-
-<script>
-
-const COUNTER_KEY =
-    "collection_card_2026_8x4m7q2p";
-
-
-async function loadCount() {
-
-    try {
-
-        const response =
-            await fetch(
-                "https://countapi.mileshilliard.com/api/v1/get/" +
-                COUNTER_KEY,
-                {
-                    cache: "no-store"
-                }
-            );
-
-        const data =
-            await response.json();
-
-        document.getElementById("count")
-            .textContent =
-            data.value ?? "—";
-
+        const data = await response.json();
+        count.textContent = data.value ?? "0";
+      } catch (error) {
+        count.textContent = "—";
+        status.textContent = "Say yüklənmədi. Yenidən yoxla.";
+      }
     }
 
-    catch (error) {
-
-        document.getElementById("count")
-            .textContent = "—";
-
-    }
-
-}
-
-
-loadCount();
-
-</script>
-
+    loadCount();
+  </script>
 </body>
-
 </html>
